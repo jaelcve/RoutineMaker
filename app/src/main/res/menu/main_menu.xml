@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <!-- showAsAction = show only if room is available-->
+    <item android:id="@+id/add_routine"
+          android:title="@string/begin_new_routine"
+          app:showAsAction="ifRoom"
+    />
+
+</menu>

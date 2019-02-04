@@ -1,4 +1,12 @@
 <resources>
-    <string name="app_name">RoutineMaker</string>
-    <string name="title_activity_main">MainActivity</string>
+    <string name="app_name">RoutineTrainer</string>
+    <string name="routine_icon">routine icon</string>
+    <string name="drink_water">Drink water</string>
+    <string name="water_desc">Glass of water will get you hydrated</string>
+    <string name="begin_new_routine">Begin new Routine&#8230;</string>
+    <string name="eat_an_apple">eat an apple</string>
+    <string name="apple_desc">Eating an apple is super healthy</string>
+    <string name="choose_routine_image">Choose an image&#8230;</string>
+    <string name="selected_image">selected image</string>
+    <string name="save">save</string>
 </resources>

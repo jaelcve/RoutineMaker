@@ -1,4 +1,4 @@
-package info.jianhuang.routinemaker
+package info.jianhuang.routinetrainer
 
 import org.junit.Test
 
