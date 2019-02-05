@@ -10,7 +10,9 @@ import android.provider.MediaStore
 import android.util.Log
 import android.view.View
 import android.widget.EditText
+import info.jianhuang.routinetrainer.db.RoutineDbTable
 import kotlinx.android.synthetic.main.activity_create_routines.*
+import kotlinx.android.synthetic.main.single_card.*
 import java.io.IOException
 
 class CreateRoutinesActivity : AppCompatActivity() {
@@ -19,7 +21,7 @@ class CreateRoutinesActivity : AppCompatActivity() {
 
     private val IMAGE_REQUEST = 1
 
-    private var imageBitmap: Bitmap? = null
+    private var imageUri: Uri = Uri.EMPTY
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,10 +32,24 @@ class CreateRoutinesActivity : AppCompatActivity() {
         if(et_title.isBlank() || et_desc.isBlank()){
             displayErrorMessage("Your routine needs a title and description")
             Log.d(TAG, "Title or description missing")
-        }else if(imageBitmap == null){
+            return
+        }else if(imageUri == null){
             Log.d(TAG, "image missing")
             displayErrorMessage("Image is missing")
             return
+        }
+
+        val title = et_title.text.toString()
+        val description = et_desc.text.toString()
+        val routine = Routine(title, description, imageUri)
+
+        val id = RoutineDbTable(this).store(routine)
+
+        if (id == -1L){
+            displayErrorMessage("Routine not stored...")
+        }else{
+            val intent = Intent(this, MainActivity::class.java)
+            startActivity(intent)
         }
     }
 
@@ -51,7 +67,6 @@ class CreateRoutinesActivity : AppCompatActivity() {
 
         //finds best app to open an image
         val chooser = Intent.createChooser(intent, "Choose image for routine")
-
         startActivityForResult(chooser, IMAGE_REQUEST)
 
         Log.d(TAG, "Intent to choose image")
@@ -63,10 +78,11 @@ class CreateRoutinesActivity : AppCompatActivity() {
         if(requestCode == IMAGE_REQUEST && resultCode == Activity.RESULT_OK
             && data != null && data.data != null){
 
-            val bitmap = tryReadBitmap(data.data)
+            val bitmap = data.data
 
             bitmap?.let {
-                iv_image.setImageBitmap(bitmap)
+                this.imageUri = bitmap
+                iv_image.setImageURI(bitmap)
                 Log.d(TAG, "Read bitmap and update view")
             }
 

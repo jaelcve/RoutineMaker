@@ -23,7 +23,7 @@ class RoutinesAdapter(private val routines: List<Routine>) : RecyclerView.Adapte
     override fun onBindViewHolder(holder: RoutineViewHolder, index: Int) {
             val routine = routines[index]
             holder.card.tv_title.text = routine.title
-            holder.card.iv_icon.setImageResource(routine.image)
+            holder.card.iv_icon.setImageURI(routine.image)
             holder.card.tv_description.text = routine.description
     }
 
